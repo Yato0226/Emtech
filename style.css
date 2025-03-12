@@ -47,6 +47,7 @@ body {
     top: 0;
     left: 0;
     perspective: 1500px;
+    overflow: hidden; /* ADDED: Clip content within pages */
 }
 
 .front,
@@ -59,6 +60,12 @@ body {
     left: 0;
     transform-origin: left;
     transition: transform 0.5s;
+    display: flex;             /* ADDED: For centering content */
+    flex-direction: column;    /* ADDED: For centering content */
+    justify-content: center;   /* ADDED: For centering content vertically */
+    align-items: center;       /* ADDED: For centering content horizontally */
+    padding: 20px;            /* ADDED: Optional padding around page content */
+    box-sizing: border-box;   /* ADDED: Include padding in width/height */
 }
 
 .front {
@@ -115,4 +122,25 @@ i {
 
 #p3 {
     z-index: 1;
+}
+
+/* Content Styles - ADDED SECTION */
+.front-content,
+.back-content {
+    width: 100%;         /* Make content divs take full page width */
+    height: 100%;        /* Make content divs take full page height */
+    display: flex;         /* Use flexbox for centering */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    text-align: center;     /* Center text within content */
+}
+
+
+.front-content img,
+.back-content img {
+    max-width: 100%;     /* IMPORTANT: Image width will not exceed container */
+    height: auto;        /* Maintain image aspect ratio */
+    display: block;       /* Prevent extra space below image */
+    margin-bottom: 15px; /* Optional: Spacing below images */
 }
