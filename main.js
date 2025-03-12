@@ -11,6 +11,11 @@ let isDragging = false;
 let moveX = 0;
 let threshold = 50; // Minimum movement to trigger a page turn
 
+let currentX = 0;
+let translateX = 0;
+let currentPage = 0;
+const totalPages = papers.length;
+
 // Mouse Drag Events (PC)
 book.addEventListener("mousedown", (e) => {
     isDragging = true;
@@ -68,3 +73,46 @@ function goPrevPage() {
         paper.style.zIndex = numOfPapers - currentLocation;
     }
 }
+
+
+
+function setTransform(value) {
+    book.style.transition = "transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)";
+    book.style.transform = `translateX(${value}px)`;
+}
+
+book.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    book.style.transition = "none";
+});
+
+book.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX;
+    translateX = currentX - startX;
+    setTransform(translateX);
+});
+
+book.addEventListener("mouseup", () => {
+    isDragging = false;
+    if (Math.abs(translateX) > threshold) {
+        if (translateX < 0 && currentPage < totalPages - 1) {
+            currentPage++;
+        } else if (translateX > 0 && currentPage > 0) {
+            currentPage--;
+        }
+    }
+    updatePage();
+});
+
+book.addEventListener("mouseleave", () => {
+    isDragging = false;
+    updatePage();
+});
+
+function updatePage() {
+    let newTransform = -currentPage * 350; // Assuming each page width is 350px
+    setTransform(newTransform);
+}
+
