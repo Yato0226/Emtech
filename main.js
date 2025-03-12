@@ -1,48 +1,56 @@
+// References to DOM Elements
 const book = document.querySelector("#book");
 const papers = document.querySelectorAll(".paper");
 
 let currentLocation = 1;
 let numOfPapers = papers.length;
 let maxLocation = numOfPapers + 1;
+
 let startX = 0;
 let isDragging = false;
+let moveX = 0;
+let threshold = 50; // Minimum movement to trigger a page turn
 
-// Touch Events
-book.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-});
-
-book.addEventListener("touchend", (e) => {
-    let endX = e.changedTouches[0].clientX;
-    handleSwipe(startX, endX);
-});
-
-// Mouse Events (for Desktop)
+// Mouse Drag Events (PC)
 book.addEventListener("mousedown", (e) => {
     isDragging = true;
     startX = e.clientX;
 });
 
-book.addEventListener("mouseup", (e) => {
-    if (isDragging) {
-        let endX = e.clientX;
-        handleSwipe(startX, endX);
-        isDragging = false;
-    }
+book.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    moveX = e.clientX - startX;
 });
 
-// Handles both touch and mouse drag
-function handleSwipe(start, end) {
-    let diff = start - end;
+book.addEventListener("mouseup", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    handleSwipe(moveX);
+});
 
-    if (diff > 50) { // Swipe left (Next Page)
-        goNextPage();
-    } else if (diff < -50) { // Swipe right (Previous Page)
-        goPrevPage();
+// Touch Events (Mobile)
+book.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+});
+
+book.addEventListener("touchmove", (e) => {
+    moveX = e.touches[0].clientX - startX;
+});
+
+book.addEventListener("touchend", () => {
+    handleSwipe(moveX);
+});
+
+// Handles swipe for both mobile and PC
+function handleSwipe(diffX) {
+    if (diffX < -threshold) {
+        goNextPage(); // Swipe left
+    } else if (diffX > threshold) {
+        goPrevPage(); // Swipe right
     }
 }
 
-// Page turning functions
+// Page turning functions (Keep your existing logic)
 function goNextPage() {
     if (currentLocation < maxLocation) {
         let paper = papers[currentLocation - 1];
