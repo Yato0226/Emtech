@@ -73,14 +73,13 @@ body {
     transform: rotateY(180deg);
 }
 
-/* Paper flip effect */
-/* Fix flipped class */
 .flipped .front {
     transform: rotateY(-180deg);
 }
 
 .flipped .back {
-    transform: rotateY(0deg);
+    transform: rotateY(0deg); /* Ensure it is facing the user */
+    z-index: 1; /* Bring it to front */
 }
 
 
