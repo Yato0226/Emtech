@@ -14,28 +14,42 @@ body {
     overflow: hidden; /* Prevent scrolling */
 }
 
+/* Book Container - Adjusted for Image Aspect Ratio */
+.book-container {
+    position: relative; /* For positioning book */
+    width: 90vw;       /* Responsive width relative to viewport */
+    max-width: 700px;   /* Maximum book width */
+    /* Adjusted height to maintain aspect ratio, assuming portrait images */
+    height: calc(90vw * 1.414); /* Approx. A4 portrait ratio (adjust if needed) */
+    max-height: 99vh;    /* Maximum book height, almost full viewport */
+    margin: 20px;
+    perspective: 1500px;
+}
+
 /* Book */
 .book {
+    width: 100%;
+    height: 100%;
     position: relative;
-    width: 90vw; /* Full width relative to viewport */
-    height: 90vh; /* Full height relative to viewport */
-    max-width: 700px; /* Maximum book width */
-    max-height: 500px; /* Maximum book height */
     transition: transform 0.5s;
+    transform-style: preserve-3d;
 }
 
 /* Scale down book for smaller screens */
 @media (max-width: 768px) {
-    .book {
+    .book-container { /* Adjusted selector to book-container */
         transform: scale(0.8); /* Shrink book */
-        width: 100vw; /* Full screen width */
-        height: 100vh; /* Full screen height */
+        width: 100vw;       /* Full screen width */
+        height: calc(100vw * 1.414 * 0.8); /* Scaled height */
+        max-width: none;    /* Remove max-width on smaller screens */
+        max-height: none;   /* Remove max-height on smaller screens */
     }
 }
 
 @media (max-width: 480px) {
-    .book {
+    .book-container { /* Adjusted selector to book-container */
         transform: scale(0.6); /* Even smaller */
+        height: calc(100vw * 1.414 * 0.6); /* Scaled height */
     }
 }
 
@@ -47,7 +61,7 @@ body {
     top: 0;
     left: 0;
     perspective: 1500px;
-    overflow: hidden; /* ADDED: Clip content within pages */
+    overflow: hidden;
 }
 
 .front,
@@ -60,12 +74,12 @@ body {
     left: 0;
     transform-origin: left;
     transition: transform 0.5s;
-    display: flex;             /* ADDED: For centering content */
-    flex-direction: column;    /* ADDED: For centering content */
-    justify-content: center;   /* ADDED: For centering content vertically */
-    align-items: center;       /* ADDED: For centering content horizontally */
-    padding: 20px;            /* ADDED: Optional padding around page content */
-    box-sizing: border-box;   /* ADDED: Include padding in width/height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Removed padding from .front and .back to fill page */
+    box-sizing: border-box;
 }
 
 .front {
@@ -76,7 +90,7 @@ body {
 
 .back {
     z-index: 0;
-    transform: rotateY(180deg); /* Ensure back pages appear */
+    transform: rotateY(180deg);
 }
 
 /* Flipping effect */
@@ -89,7 +103,7 @@ body {
     z-index: 2;
 }
 
-/* Buttons */
+/* Buttons (No changes needed) */
 button {
     border: none;
     background-color: transparent;
@@ -111,7 +125,7 @@ i {
     color: gray;
 }
 
-/* Ensure the pages stack correctly */
+/* Ensure the pages stack correctly (No changes needed) */
 #p1 {
     z-index: 3;
 }
@@ -124,23 +138,35 @@ i {
     z-index: 1;
 }
 
-/* Content Styles - ADDED SECTION */
+/* Content Styles - Adjusted for Full Page Image */
 .front-content,
 .back-content {
-    width: 100%;         /* Make content divs take full page width */
-    height: 100%;        /* Make content divs take full page height */
-    display: flex;         /* Use flexbox for centering */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center;     /* Center horizontally */
-    text-align: center;     /* Center text within content */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    align-items: stretch;     /* Stretch content to fill width */
+    text-align: center;
+    overflow: hidden; /* Ensure content stays within bounds */
 }
 
 
 .front-content img,
 .back-content img {
-    max-width: 100%;     /* IMPORTANT: Image width will not exceed container */
-    height: auto;        /* Maintain image aspect ratio */
+    width: 100%;         /* Image takes full width of container */
+    height: auto;        /* Maintain aspect ratio */
     display: block;       /* Prevent extra space below image */
-    margin-bottom: 15px; /* Optional: Spacing below images */
+    object-fit: contain; /* Ensure image fits within container without cropping */
+    object-position: top center; /* Position image at the top center */
 }
+
+/* Optional: If you want to fill the height and potentially crop */
+/*.front-content img,
+.back-content img {
+    width: 100%;
+    height: 100%; !* Image takes full height of container *!
+    display: block;
+    object-fit: cover; !* Image covers the entire container, may crop *!
+    object-position: center center; !* Center the image *!
+}*/
