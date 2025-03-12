@@ -80,6 +80,18 @@ button {
     cursor: pointer;
     margin: 10px;
     transition: transform 0.5s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+#prev-btn {
+    left: 10px;
+}
+
+#next-btn {
+    right: 10px;
 }
 
 button:focus {
