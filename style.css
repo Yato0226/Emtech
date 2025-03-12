@@ -74,10 +74,15 @@ body {
 }
 
 /* Paper flip effect */
-.flipped .front,
-.flipped .back {
+/* Fix flipped class */
+.flipped .front {
     transform: rotateY(-180deg);
 }
+
+.flipped .back {
+    transform: rotateY(0deg);
+}
+
 
 /* Controller Buttons */
 button {

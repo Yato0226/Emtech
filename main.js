@@ -56,7 +56,7 @@ function goNextPage() {
     if (currentLocation < maxLocation) {
         let paper = papers[currentLocation - 1];
         paper.classList.add("flipped");
-        paper.style.zIndex = currentLocation;
+        paper.style.zIndex = numOfPapers - currentLocation; // Fix z-index order
         currentLocation++;
     }
 }
@@ -66,6 +66,6 @@ function goPrevPage() {
         currentLocation--;
         let paper = papers[currentLocation - 1];
         paper.classList.remove("flipped");
-        paper.style.zIndex = numOfPapers - currentLocation;
+        paper.style.zIndex = numOfPapers - currentLocation + 1; // Fix z-index order
     }
 }
