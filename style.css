@@ -154,11 +154,11 @@ i {
 
 .front-content img,
 .back-content img {
-    width: 100%;         /* Image takes full width of container */
-    height: auto;        /* Maintain aspect ratio */
-    display: block;       /* Prevent extra space below image */
-    object-fit: contain; /* Ensure image fits within container without cropping */
-    object-position: top center; /* Position image at the top center */
+    width: 100%;
+    height: 100%; /* Image takes full height of container */
+    display: block;
+    object-fit: cover; /* Image covers the entire container, may crop */
+    object-position: center center; /* Center the image */
 }
 
 /* Optional: If you want to fill the height and potentially crop */
