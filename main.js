@@ -33,6 +33,7 @@ function openBook() {
     nextBtn.style.transform = "translateX(180px)";
 }
 
+<<<<<<< HEAD
 function closeBook(isBeginning) {
     if(isBeginning) {
         book.style.transform = "translateX(0%)";
@@ -43,6 +44,26 @@ function closeBook(isBeginning) {
     nextBtn.style.transform = "translateX(0px)";
 }
 
+=======
+// Page turning functions (Keep your existing logic)
+function openBook() {
+    book.style.transform = "translateX(50%)";
+    prevBtn.style.transform = "translateX(-180px)";
+    nextBtn.style.transform = "translateX(180px)";
+}
+
+function closeBook(isAtBeginning) {
+    if(isAtBeginning) {
+        book.style.transform = "translateX(0%)";
+    } else {
+        book.style.transform = "translateX(100%)";
+    }
+    
+    prevBtn.style.transform = "translateX(0px)";
+    nextBtn.style.transform = "translateX(0px)";
+}
+
+>>>>>>> 9e51e941b81c1328894b983946f26e8d142b5d39
 function goNextPage() {
     if(currentLocation < maxLocation) {
         switch(currentLocation) {
@@ -58,6 +79,7 @@ function goNextPage() {
             case 3:
                 paper3.classList.add("flipped");
                 paper3.style.zIndex = 3;
+<<<<<<< HEAD
                 break;
             case 4:
                 paper4.classList.add("flipped");
@@ -106,6 +128,8 @@ function goNextPage() {
             case 15:
                 paper15.classList.add("flipped");
                 paper15.style.zIndex = 15;
+=======
+>>>>>>> 9e51e941b81c1328894b983946f26e8d142b5d39
                 closeBook(false);
                 break;
             default:
@@ -121,6 +145,7 @@ function goPrevPage() {
             case 2:
                 closeBook(true);
                 paper1.classList.remove("flipped");
+<<<<<<< HEAD
                 paper1.style.zIndex = 15;
                 break;
             case 3:
@@ -179,10 +204,26 @@ function goPrevPage() {
                 openBook();
                 paper15.classList.remove("flipped");
                 paper15.style.zIndex = 1;
+=======
+                paper1.style.zIndex = 3;
+                break;
+            case 3:
+                paper2.classList.remove("flipped");
+                paper2.style.zIndex = 2;
+                break;
+            case 4:
+                openBook();
+                paper3.classList.remove("flipped");
+                paper3.style.zIndex = 1;
+>>>>>>> 9e51e941b81c1328894b983946f26e8d142b5d39
                 break;
             default:
                 throw new Error("unkown state");
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9e51e941b81c1328894b983946f26e8d142b5d39
         currentLocation--;
     }
 }
